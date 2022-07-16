@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+
+
     private Transform target;
+
+    [Header("Tower Attributes")]
+
     private float range = 15f;
     public string enemyTag = "Enemy";
 
     public Transform pivot;
     public float rotationSpeed = 5f;
+
+    [Header("Fire Attributes")]
+
+    public float fireRate = 1f;
+    public float fireCD = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +38,19 @@ public class Turret : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(pivot.rotation,lookRotation,Time.deltaTime * rotationSpeed).eulerAngles;
         pivot.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+        if (fireCD <= 0f)
+        {
+            Fire();
+            fireCD = 1f/fireRate;
+        }
+
+        fireRate -= Time.deltaTime;
+    }
+
+    void Fire()
+    {
+
     }
 
     void UpdateTarget()
