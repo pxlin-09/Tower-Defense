@@ -11,6 +11,7 @@ public class WaveSpawner : MonoBehaviour
     private float countdown = 2f;
     private int waveNum = 0;
     public Transform SpawnPoint;
+    public int money;
     // Start is called before the first frame update
 
     public TextMeshProUGUI txt;
@@ -22,6 +23,11 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (User.instance.GameOver())
+        {
+            return;
+        }
+        
         if (countdown <= 0f)
         {
             if (waveNum < waves) StartCoroutine(SpawnWave());
@@ -34,7 +40,7 @@ public class WaveSpawner : MonoBehaviour
     {
         waveNum++;
         UpdateWavesText();
-        for (int i = 0; i < waveNum * 10; i++)
+        for (int i = 0; i < waveNum * 5; i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(0.2f);

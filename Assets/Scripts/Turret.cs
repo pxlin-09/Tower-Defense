@@ -15,11 +15,22 @@ public class Turret : MonoBehaviour
 
     public Transform pivot;
     public float rotationSpeed = 5f;
+    public GameObject baseTurret;
+    public GameObject headTurret;
+
+    public Color level2;
+    public Color level3;
 
     [Header("Fire Attributes")]
 
-    public float fireRate = 1f;
+    public float fireRate = 0.5f;
     public float fireCD = 0f;
+
+    public GameObject bulletPre;
+    public Transform gun; 
+
+    private int level = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,12 +56,17 @@ public class Turret : MonoBehaviour
             fireCD = 1f/fireRate;
         }
 
-        fireRate -= Time.deltaTime;
+        fireCD -= Time.deltaTime;
     }
 
     void Fire()
     {
-
+        GameObject b = (GameObject) Instantiate(bulletPre, gun.position, gun.rotation);
+        Bullet bullet = b.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            bullet.SetTarget(target);
+        }
     }
 
     void UpdateTarget()
@@ -79,5 +95,20 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    public bool upgrade()
+    {
+        if (level < 3)
+        {
+            level += 1;
+            Color newColor = (level == 2)? level2 : level3;
+            var mats = baseTurret.GetComponent<Renderer>().materials;
+            mats[0].color = newColor;
+            mats = headTurret.GetComponent<Renderer>().materials;
+            mats[1].color = newColor;
+            return true;
+        }
+        return false;
     }
 }

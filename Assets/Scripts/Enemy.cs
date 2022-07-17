@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
         if (waveIdx >= WayPoints.points.Length - 1)
         {
             Destroy(gameObject);
+            User.instance.LoseHP();
             return;
         }
         waveIdx++; 
