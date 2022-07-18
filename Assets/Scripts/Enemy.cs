@@ -10,6 +10,13 @@ public class Enemy : MonoBehaviour
 
     private int waveIdx = 0;
 
+    public int level;
+    public int hp;
+
+    public Color level2;
+    public Color level3;
+    public int moneyMultiplier; // how much user earns per enemy
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,5 +46,31 @@ public class Enemy : MonoBehaviour
         }
         waveIdx++; 
         target = WayPoints.points[waveIdx];
+    }
+
+    public void SetLevel(int l)
+    {
+        level = l;
+        hp = l;
+        Renderer rend = GetComponent<Renderer>();
+        if (level == 2)
+        {
+            rend.material.color = level2;
+        }
+        if (level == 3)
+        {
+            rend.material.color = level3;
+        }
+    }
+
+    public void GetHit()
+    {
+        hp -= 1;
+        if (hp == 0)
+        {
+            User.instance.GainMoney(level * moneyMultiplier);
+            Destroy(gameObject);
+            return;
+        }
     }
 }

@@ -21,9 +21,12 @@ public class Turret : MonoBehaviour
     public Color level2;
     public Color level3;
 
+    public int upgradeTo2Cost = 200;
+    public int upgradeTo3Cost = 300;
+
     [Header("Fire Attributes")]
 
-    public float fireRate = 0.5f;
+    public float fireRate = 1f;
     public float fireCD = 0f;
 
     public GameObject bulletPre;
@@ -101,14 +104,31 @@ public class Turret : MonoBehaviour
     {
         if (level < 3)
         {
-            level += 1;
-            Color newColor = (level == 2)? level2 : level3;
-            var mats = baseTurret.GetComponent<Renderer>().materials;
-            mats[0].color = newColor;
-            mats = headTurret.GetComponent<Renderer>().materials;
-            mats[1].color = newColor;
-            return true;
+            if ((level == 2 && User.instance.spend(upgradeTo3Cost)) || 
+            (level == 1 && User.instance.spend(upgradeTo2Cost)))
+            {
+                level += 1;
+                Color newColor = (level == 2)? level2 : level3;
+                var mats = baseTurret.GetComponent<Renderer>().materials;
+                mats[0].color = newColor;
+                mats = headTurret.GetComponent<Renderer>().materials;
+                mats[1].color = newColor;
+                SetNewLevelStats();
+                return true;
+            }
         }
         return false;
+    }
+
+    private void SetNewLevelStats()
+    {
+        if (level == 2)
+        {
+            fireRate = 2f;
+        }
+        if (level == 3)
+        {
+            fireRate = 3f;
+        }
     }
 }

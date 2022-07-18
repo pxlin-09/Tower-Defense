@@ -45,7 +45,9 @@ public class Bullet : MonoBehaviour
         Debug.Log("Hit!");
         GameObject efx = Instantiate(hitEffect, transform.position, transform.rotation);
         Destroy(efx, 2f);
-        Destroy(target.gameObject);
+        Enemy e = target.GetComponent<Enemy>();
+        e.GetHit();
+        //Destroy(target.gameObject);
         Destroy(gameObject);
     }
 }

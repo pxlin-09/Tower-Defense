@@ -13,7 +13,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform SpawnPoint;
     public int money;
     // Start is called before the first frame update
-
+    System.Random random = new System.Random(); 
     public TextMeshProUGUI txt;
     void Start()
     {
@@ -51,7 +51,10 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
+        Transform ene = (Transform) Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
+        Enemy e = ene.GetComponent<Enemy>();    
+        int level = random.Next(1,3);
+        e.SetLevel(level);
     }
 
     void UpdateWavesText()

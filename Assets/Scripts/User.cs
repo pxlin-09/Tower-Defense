@@ -75,4 +75,21 @@ public class User : MonoBehaviour
     {
         return lose;
     }
+
+    public bool spend(int amount)
+    {
+        if (money >= amount)
+        {
+            money -= amount;
+            UpdateMoney();
+            return true;
+        }
+        return false;
+    }
+
+    public void GainMoney(int amount)
+    {
+        money += amount;
+        UpdateMoney();
+    }
 }
