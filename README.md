@@ -18,3 +18,7 @@ Press on any green node to create turret. Press on existing turret to upgrade. L
 Screenshots:  
 <img width=500 src="https://github.com/pxlin-09/Tower-Defense/blob/main/game%20screenshots/td1.png"/>
 <img width=500 src="https://github.com/pxlin-09/Tower-Defense/blob/main/game%20screenshots/td2.png"/>
+
+
+https://user-images.githubusercontent.com/83623073/191158144-748433f5-6590-416d-a91f-300cbca043c6.mp4
+
